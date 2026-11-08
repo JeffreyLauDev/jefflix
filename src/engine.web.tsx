@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { t } from './i18n';
 import Hls from 'hls.js';
 import { Engine, EngineOpts, EngineState, initialState } from './engine.types';
 
@@ -101,6 +102,6 @@ export function useEngine({ url, hls, startAt, onError }: EngineOpts): Engine {
       setMutedState(m);
     },
     cast: hasWebkit || hasRemote ? cast : undefined,
-    castLabel: hasWebkit ? 'AirPlay' : '投放',
+    castLabel: hasWebkit ? 'AirPlay' : t('cast'),
   };
 }

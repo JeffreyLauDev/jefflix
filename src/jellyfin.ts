@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { t } from './i18n';
 import { Platform } from 'react-native';
 
 const SERVER_KEY = 'jf_server';
@@ -179,16 +180,16 @@ export async function rows(tab: Tab): Promise<Row[]> {
   const add = (key: string, title: string, list: Item[]) => list.length && out.push({ key, title, items: list });
 
   if (tab === 'mylist') {
-    add('fav', '我的片單', await items(`Filters=IsFavorite&${VIDEO_TYPES}&SortBy=DateCreated&SortOrder=Descending`));
+    add('fav', t('myList'), await items(`Filters=IsFavorite&${VIDEO_TYPES}&SortBy=DateCreated&SortOrder=Descending`));
     return out;
   }
   if (tab === 'shows') {
-    add('series', '全部節目', await items('IncludeItemTypes=Series&SortBy=SortName'));
+    add('series', t('allShows'), await items('IncludeItemTypes=Series&SortBy=SortName'));
     return out;
   }
   if (tab === 'movies') {
     const all = await items('IncludeItemTypes=Movie&SortBy=SortName');
-    add('new', '最新電影', [...all].sort((a, b) => (b.PremiereDate || '').localeCompare(a.PremiereDate || '')).slice(0, 30));
+    add('new', t('newMovies'), [...all].sort((a, b) => (b.PremiereDate || '').localeCompare(a.PremiereDate || '')).slice(0, 30));
     groupBy(all, (i) => i.Genres?.[0]).forEach(([g, l]) => add(`g-${g}`, g, l));
     return out;
   }
@@ -204,10 +205,10 @@ export async function rows(tab: Tab): Promise<Row[]> {
     groupBy(mvs, artistOf).forEach(([a, l]) => add(`a-${a}`, a, l));
     return out;
   }
-  add('resume', '繼續觀看', resume);
-  add('fav', '我的片單', fav);
-  add('latest', '最新加入', latest);
-  add('top10', '熱門 Top 10', [...mvs].sort(() => 0.5 - Math.random()).slice(0, 10));
+  add('resume', t('continueWatching'), resume);
+  add('fav', t('myList'), fav);
+  add('latest', t('latest'), latest);
+  add('top10', t('top10'), [...mvs].sort(() => 0.5 - Math.random()).slice(0, 10));
   groupBy(mvs, artistOf).slice(0, 15).forEach(([a, l]) => add(`a-${a}`, a, l.slice(0, 40)));
   return out;
 }
@@ -253,4 +254,4 @@ export const report = (kind: 'start' | 'progress' | 'stop', it: Item, positionSe
     PlayMethod: 'DirectPlay',
   }).catch(() => undefined);
 
-export const minutes = (t?: number) => (t ? `${Math.max(1, Math.round(t / 6e8))} 分鐘` : '');
+export const minutes = (ticks?: number) => (ticks ? t('min', { n: Math.max(1, Math.round(ticks / 6e8)) }) : '');

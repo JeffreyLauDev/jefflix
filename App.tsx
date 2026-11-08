@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { t, useLang } from './src/i18n';
 import { BackHandler, Platform, Pressable, StyleSheet, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import * as jf from './src/jellyfin';
@@ -24,6 +25,7 @@ export default function App() {
 }
 
 function AppInner() {
+  useLang();
   const top0 = useSafeAreaInsets().top;
   const [intro, setIntro] = useState(true);
   const [authed, setAuthed] = useState<boolean | null>(null);
@@ -139,7 +141,7 @@ function AppInner() {
               {sc.name === 'details' && <Details item={sc.item} active={!hidden} onPlay={play} onOpen={info} />}
               {sc.name === 'search' && <View style={{ flex: 1, paddingTop: top0 }}><Search onOpen={info} /></View>}
               {sc.name !== 'player' && !L.tv && (
-                <Pressable role="button" accessibilityLabel="返回" onPress={back} hitSlop={10} style={[s.backBtn, { left: L.pad - 6, top: top0 + (L.phone ? 10 : 18) }]}>
+                <Pressable role="button" accessibilityLabel={t('back')} onPress={back} hitSlop={10} style={[s.backBtn, { left: L.pad - 6, top: top0 + (L.phone ? 10 : 18) }]}>
                   <Icon name="back" size={24} />
                 </Pressable>
               )}

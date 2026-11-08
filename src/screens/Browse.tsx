@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { t, Key, LANGS, getLang, setLang, langName, useLang } from '../i18n';
 import { Platform } from 'react-native';
 import { ActivityIndicator, FlatList, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import * as jf from '../jellyfin';
@@ -8,13 +9,13 @@ import { Hero, Logo, Row } from '../components';
 import { Icon } from '../Icon';
 
 /** TV layout: top tab bar (search · home · shows · movies · MV · my list), hero, rows. */
-const TABS: { key: jf.Tab | 'search'; label: string }[] = [
-  { key: 'search', label: '搜尋' },
-  { key: 'home', label: '首頁' },
-  { key: 'shows', label: '節目' },
-  { key: 'movies', label: '電影' },
-  { key: 'mv', label: 'MV' },
-  { key: 'mylist', label: '我的片單' },
+const TABS: { key: jf.Tab | 'search'; label: Key }[] = [
+  { key: 'search', label: 'tabSearch' },
+  { key: 'home', label: 'tabHome' },
+  { key: 'shows', label: 'tabShows' },
+  { key: 'movies', label: 'tabMovies' },
+  { key: 'mv', label: 'tabMv' },
+  { key: 'mylist', label: 'myList' },
 ];
 
 type Props = {
@@ -32,6 +33,7 @@ export function Browse({ onPlay, onInfo, onSearch, onProfile, tab, onTab: setTab
   const [hero, setHero] = useState<jf.Item>();
   const [err, setErr] = useState('');
   const [menu, setMenu] = useState(false);
+  const lang = useLang();
   const [scrolled, setScrolled] = useState(false);
   // Back closes the profile menu first (capture phase runs before the app-level back handler).
   useEffect(() => {
@@ -58,12 +60,12 @@ export function Browse({ onPlay, onInfo, onSearch, onProfile, tab, onTab: setTab
         setRows(r);
         setHero(r.find((x) => x.key !== 'resume')?.items[0] ?? r[0]?.items[0]);
       },
-      () => alive && setErr('連唔到 Jellyfin'),
+      () => alive && setErr(t('cantReach')),
     );
     return () => {
       alive = false;
     };
-  }, [tab]);
+  }, [tab, lang]);
 
   // On TV/desktop the hero follows the focused card, like a TV streaming app.
   const onFocus = useCallback((i: jf.Item) => !L.phone && setHero(i), [L.phone]);
@@ -79,18 +81,18 @@ export function Browse({ onPlay, onInfo, onSearch, onProfile, tab, onTab: setTab
         {!L.phone && <View style={{ marginLeft: 4 }}><Icon name="chevron-down" size={f(22)} /></View>}
       </Focusable>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={s.tabs} style={{ flexGrow: 0, flexShrink: 1 }} {...({ dataSet: { tabbar: '1' } } as object)}>
-        {TABS.map((t) => {
-          const active = t.key === tab;
+        {TABS.map((tb) => {
+          const active = tb.key === tab;
           return (
             <Focusable
-              key={t.key}
-              autoFocus={t.key === 'home'}
+              key={tb.key}
+              autoFocus={tb.key === 'home'}
               aria-selected={active}
-              onPress={() => (t.key === 'search' ? onSearch() : setTab(t.key))}
+              onPress={() => (tb.key === 'search' ? onSearch() : setTab(tb.key))}
               style={[s.tab, L.phone && s.tabPhone, active && s.tabActive]}
               focusStyle={s.tabFocus}
             >
-              {t.key === 'search' ? <Icon name="search" size={L.phone ? 18 : f(26)} color={active ? '#fff' : C.sub} /> : <Text style={[s.tabText, { fontSize: L.phone ? 13 : f(24) }, active && { color: '#fff' }]}>{t.label}</Text>}
+              {tb.key === 'search' ? <Icon name="search" size={L.phone ? 18 : f(26)} color={active ? '#fff' : C.sub} /> : <Text style={[s.tabText, { fontSize: L.phone ? 13 : f(24) }, active && { color: '#fff' }]}>{t(tb.label)}</Text>}
             </Focusable>
           );
         })}
@@ -109,7 +111,7 @@ export function Browse({ onPlay, onInfo, onSearch, onProfile, tab, onTab: setTab
             <Hero item={hero} onPlay={onPlay} onInfo={onInfo} />
             {!rows && !err ? <ActivityIndicator color={C.red} size="large" style={{ marginTop: 40 }} /> : null}
             {err ? <Text style={s.err}>{err}</Text> : null}
-            {rows && !rows.length ? <Text style={s.err}>呢度暫時冇片</Text> : null}
+            {rows && !rows.length ? <Text style={s.err}>{t('empty')}</Text> : null}
           </View>
         }
         renderItem={({ item }) => <Row row={item} onPress={onInfo} onFocus={onFocus} />}
@@ -129,7 +131,12 @@ export function Browse({ onPlay, onInfo, onSearch, onProfile, tab, onTab: setTab
           <View style={s.menu}>
             <Text style={[s.menuTitle, { fontSize: f(26) }]}>{user?.userName}</Text>
             <Focusable autoFocus onPress={onProfile} style={s.menuItem} focusStyle={s.menuFocus}>
-              <Text style={[s.menuText, { fontSize: f(24) }]}>轉換用戶／登出</Text>
+              <Text style={[s.menuText, { fontSize: f(24) }]}>{t('switchUser')}</Text>
+            </Focusable>
+            <Focusable
+              onPress={() => setLang(LANGS[(LANGS.findIndex((x) => x.code === getLang()) + 1) % LANGS.length].code)}
+              style={s.menuItem} focusStyle={s.menuFocus} accessibilityRole="button">
+              <Text style={[s.menuText, { fontSize: f(24) }]}>{t('language')}: {langName()}  ›</Text>
             </Focusable>
             <Focusable
               onPress={() => {
@@ -137,7 +144,7 @@ export function Browse({ onPlay, onInfo, onSearch, onProfile, tab, onTab: setTab
                 if (Platform.OS === 'web') setTimeout(() => (document.querySelector('[data-avatar]') as HTMLElement | null)?.focus(), 50);
               }}
               style={s.menuItem} focusStyle={s.menuFocus}>
-              <Text style={[s.menuText, { fontSize: f(24) }]}>取消</Text>
+              <Text style={[s.menuText, { fontSize: f(24) }]}>{t('cancel')}</Text>
             </Focusable>
           </View>
         </View>

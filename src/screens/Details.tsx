@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { t } from '../i18n';
 import { FlatList, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as jf from '../jellyfin';
@@ -68,27 +69,27 @@ export function Details({ item: initial, active = true, onPlay, onOpen }: { item
           {playTarget ? (
             <Focusable autoFocus onPress={() => onPlay(playTarget)} style={[s.btn, { backgroundColor: '#fff' }]} focusStyle={s.btnFocus}>
               <Icon name="play" size={f(28)} color="#000" />
-              <Text style={[s.btnText, { color: '#000', fontSize: f(26) }]}>{resumable ? '繼續播放' : '播放'}</Text>
+              <Text style={[s.btnText, { color: '#000', fontSize: f(26) }]}>{resumable ? t('resume') : t('play')}</Text>
             </Focusable>
           ) : null}
           {resumable ? (
             <Focusable onPress={() => onPlay(item, true)} style={s.btn} focusStyle={s.btnFocus}>
               <Icon name="replay" size={f(28)} />
-              <Text style={[s.btnText, { fontSize: f(26) }]}>由頭播</Text>
+              <Text style={[s.btnText, { fontSize: f(26) }]}>{t('startOver')}</Text>
             </Focusable>
           ) : null}
           <Focusable onPress={toggleFav} style={s.btn} focusStyle={s.btnFocus}>
             <Icon name={fav ? 'check' : 'plus'} size={f(28)} />
-            <Text style={[s.btnText, { fontSize: f(26) }]}>{fav ? '已加入片單' : '我的片單'}</Text>
+            <Text style={[s.btnText, { fontSize: f(26) }]}>{fav ? t('inMyList') : t('myList')}</Text>
           </Focusable>
         </View>
-        {item.Type === 'Series' && !eps.length ? <Text style={[s.meta, { color: C.sub, fontSize: f(22), marginBottom: 16 }]}>仲未有集數可以播（Jellyfin 未掃描到）</Text> : null}
+        {item.Type === 'Series' && !eps.length ? <Text style={[s.meta, { color: C.sub, fontSize: f(22), marginBottom: 16 }]}>{t('noEpisodes')}</Text> : null}
         {item.Overview ? <Text style={[s.over, { fontSize: f(24), lineHeight: f(36) }]}>{item.Overview}</Text> : null}
       </View>
 
       {eps.length ? (
         <View style={{ marginTop: 30 }}>
-          <Text style={[s.section, { fontSize: f(30), marginLeft: L.pad }]}>集數</Text>
+          <Text style={[s.section, { fontSize: f(30), marginLeft: L.pad }]}>{t('episodes')}</Text>
           <FlatList
             data={eps}
             keyExtractor={(e) => e.Id}
@@ -111,7 +112,7 @@ export function Details({ item: initial, active = true, onPlay, onOpen }: { item
 
       {more.length ? (
         <View style={{ marginTop: 30 }}>
-          <Row row={{ key: 'more', title: '更多類似', items: more }} onPress={onOpen} />
+          <Row row={{ key: 'more', title: t('moreLikeThis'), items: more }} onPress={onOpen} />
         </View>
       ) : null}
     </ScrollView>

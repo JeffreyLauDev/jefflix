@@ -2,6 +2,11 @@
 
 All notable changes to Jefflix. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions: [SemVer](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+- English UI by default, plus 廣東話, 繁體中文, 简体中文, 日本語, 한국어 and Español. Change it from the profile menu or the sign-in screen; the choice is saved on the device (#1).
+
 ## [2.0.0] — 2026-11-08
 
 First public release.

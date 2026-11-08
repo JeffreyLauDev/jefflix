@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { t, Key } from '../i18n';
 import { ActivityIndicator, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as jf from '../jellyfin';
@@ -15,10 +16,10 @@ import { BACK_CODES } from '../spatialNav';
  * Reports progress to Jellyfin. The video itself comes from `useEngine` (web <video>+hls.js, native expo-video).
  */
 const QUALITIES: { label: string; q?: jf.Quality }[] = [
-  { label: '原檔（最清）' },
+  { label: 'original' },
   { label: '1080p', q: { height: 1080, bitrate: 8_000_000 } },
   { label: '720p', q: { height: 720, bitrate: 4_000_000 } },
-  { label: '480p（慳流量）', q: { height: 480, bitrate: 1_500_000 } },
+  { label: 'q480', q: { height: 480, bitrate: 1_500_000 } },
   { label: '360p', q: { height: 360, bitrate: 800_000 } },
 ];
 const RATES = [0.75, 1, 1.25, 1.5, 2];
@@ -281,22 +282,22 @@ export function Player({ item, fromStart, onNext, onClose }: { item: jf.Item; fr
       {e.s.loading && !failed ? <ActivityIndicator size="large" color="#fff" style={s.center} pointerEvents="none" /> : null}
       {failed ? (
         <View style={s.center} pointerEvents="none">
-          <Text style={s.msg}>呢條片播唔到，試吓喺右下角轉畫質</Text>
+          <Text style={s.msg}>{t('cantPlay')}</Text>
         </View>
       ) : null}
 
       <View style={[StyleSheet.absoluteFill, { opacity: visible ? 1 : 0 }]} pointerEvents="box-none">
         <View style={[s.top, { paddingHorizontal: L.pad, paddingTop: L.phone ? 40 : 24 }]} pointerEvents={visible ? 'auto' : 'none'}>
-          {btn('返回', onClose, 'back', big * 0.8)}
+          {btn(t('back'), onClose, 'back', big * 0.8)}
           <Text numberOfLines={1} style={[s.title, { fontSize: L.phone ? 15 : 22 }]}>{titleOf(item)}</Text>
-          {e.nativeCast ?? (e.cast ? btn(e.castLabel ?? '投放', e.cast, e.castLabel === 'AirPlay' ? 'airplay' : 'cast', sm + 8) : null)}
+          {e.nativeCast ?? (e.cast ? btn(e.castLabel ?? t('cast'), e.cast, e.castLabel === 'AirPlay' ? 'airplay' : 'cast', sm + 8) : null)}
         </View>
 
         {!panel && <View style={s.mid} pointerEvents="box-none">
           <View pointerEvents={visible ? 'auto' : 'none'} style={[s.midRow, { gap: L.phone ? 28 : 56 }]}>
-            {btn('後退10秒', () => seekBy(-10), 'rewind10', big)}
-            {btn(e.s.ended ? '重播' : e.s.playing ? '暫停' : '播放', e.s.ended ? () => e.seek(0) : toggle, e.s.ended ? 'replay' : e.s.playing ? 'pause' : 'play', big * 1.6)}
-            {btn('快進10秒', () => seekBy(10), 'forward10', big)}
+            {btn(t('rewind'), () => seekBy(-10), 'rewind10', big)}
+            {btn(e.s.ended ? t('replay') : e.s.playing ? t('pause') : t('play'), e.s.ended ? () => e.seek(0) : toggle, e.s.ended ? 'replay' : e.s.playing ? 'pause' : 'play', big * 1.6)}
+            {btn(t('forward'), () => seekBy(10), 'forward10', big)}
           </View>
         </View>}
 
@@ -313,21 +314,21 @@ export function Player({ item, fromStart, onNext, onClose }: { item: jf.Item; fr
             <Text style={s.time}>-{fmt(Math.max(0, e.s.duration - (scrub ?? e.s.time)))}</Text>
           </View>
           <View style={s.opts}>
-            {rail.length ? btn(item.Type === 'Episode' ? '集數' : '相關影片', () => setPanel(true), 'list', sm + 6, item.Type === 'Episode' ? '集數' : '相關') : null}
-            {next ? btn('下一集', () => onNext(next), 'next', sm + 6, '下一集') : null}
+            {rail.length ? btn(item.Type === 'Episode' ? t('episodes') : t('related'), () => setPanel(true), 'list', sm + 6, item.Type === 'Episode' ? t('episodes') : t('relatedShort')) : null}
+            {next ? btn(t('next'), () => onNext(next), 'next', sm + 6, t('next')) : null}
             <View style={{ flex: 1 }} />
-            {btn('播放速度', cycleRate, undefined, sm, `${rate}x`)}
-            {btn('靜音', () => e.setMuted(!e.muted), e.muted ? 'mute' : 'volume', sm + 8)}
-            {btn('畫質', () => setMenu(!menu), 'settings', sm + 6, QUALITIES[quality].q ? QUALITIES[quality].label.split('（')[0] : fellBack ? '720p' : '原檔')}
-            {canMini ? btn(mini ? '還原視窗' : '小視窗置頂', toggleMini, mini ? 'exit-fullscreen' : 'mini', sm + 8) : null}
-            {isWeb && (globalThis as any).document?.fullscreenEnabled ? btn('全螢幕', toggleFs, fs ? 'exit-fullscreen' : 'fullscreen', sm + 8) : null}
+            {btn(t('speed'), cycleRate, undefined, sm, `${rate}x`)}
+            {btn(t('mute'), () => e.setMuted(!e.muted), e.muted ? 'mute' : 'volume', sm + 8)}
+            {btn(t('quality'), () => setMenu(!menu), 'settings', sm + 6, QUALITIES[quality].q ? `${QUALITIES[quality].q!.height}p` : fellBack ? '720p' : t('originalShort'))}
+            {canMini ? btn(mini ? t('restoreWindow') : t('miniWindow'), toggleMini, mini ? 'exit-fullscreen' : 'mini', sm + 8) : null}
+            {isWeb && (globalThis as any).document?.fullscreenEnabled ? btn(t('fullscreen'), toggleFs, fs ? 'exit-fullscreen' : 'fullscreen', sm + 8) : null}
           </View>
           {menu ? (
             <View style={s.menu}>
-              <Text style={s.menuTitle}>畫質</Text>
+              <Text style={s.menuTitle}>{t('quality')}</Text>
               {QUALITIES.map((o, i) => (
-                <Pressable key={o.label} role="button" onPress={() => pickQuality(i)} style={s.menuItem}>
-                  <Text style={[s.menuText, i === quality && { color: C.red, fontWeight: '800' }]}>{o.label}</Text>
+                <Pressable key={i} role="button" onPress={() => pickQuality(i)} style={s.menuItem}>
+                  <Text style={[s.menuText, i === quality && { color: C.red, fontWeight: '800' }]}>{o.q && o.label !== 'q480' ? o.label : t(o.label as Key)}</Text>
                   {i === quality ? <Icon name="check" size={18} color={C.red} /> : null}
                 </Pressable>
               ))}
@@ -336,7 +337,7 @@ export function Player({ item, fromStart, onNext, onClose }: { item: jf.Item; fr
         </View>}
         {panel && rail.length ? (
           <EpisodeRail
-            title={item.Type === 'Episode' ? item.SeriesName ?? '集數' : '相關影片'}
+            title={item.Type === 'Episode' ? item.SeriesName ?? t('episodes') : t('related')}
             current={item.Id}
             list={rail}
             onPick={(it) => (it.Id === item.Id ? setPanel(false) : onNext(it))}

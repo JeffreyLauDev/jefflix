@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { t } from '../i18n';
 import { FlatList, Image, StyleSheet, Text, TextInput, View } from 'react-native';
 import * as jf from '../jellyfin';
 import { C, useLayout } from '../theme';
@@ -45,13 +46,13 @@ export function Search({ onOpen }: { onOpen: (i: jf.Item) => void }) {
       </View>
       <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
         <Focusable onPress={() => setQ((x) => x + ' ')} style={[s.key, { flex: 1, height: f(56) }]} focusStyle={s.keyFocus}>
-          <Text style={[s.keyText, { fontSize: f(22) }]}>空格</Text>
+          <Text style={[s.keyText, { fontSize: f(22) }]}>{t('space')}</Text>
         </Focusable>
         <Focusable onPress={() => setQ((x) => x.slice(0, -1))} style={[s.key, { flex: 1, height: f(56) }]} focusStyle={s.keyFocus}>
           <Icon name="backspace" size={f(26)} />
         </Focusable>
         <Focusable onPress={() => setQ('')} style={[s.key, { flex: 1, height: f(56) }]} focusStyle={s.keyFocus}>
-          <Text style={[s.keyText, { fontSize: f(22) }]}>清除</Text>
+          <Text style={[s.keyText, { fontSize: f(22) }]}>{t('clear')}</Text>
         </Focusable>
       </View>
     </View>
@@ -63,7 +64,7 @@ export function Search({ onOpen }: { onOpen: (i: jf.Item) => void }) {
         value={q}
         onChangeText={setQ}
         autoFocus={L.phone}
-        placeholder="搜尋片名、歌手…（中文用手機鍵盤或者遙控器講嘢）"
+        placeholder={t('searchPh')}
         placeholderTextColor="#777"
         style={[s.input, { fontSize: f(30) }]}
       />
@@ -75,7 +76,7 @@ export function Search({ onOpen }: { onOpen: (i: jf.Item) => void }) {
           data={res}
           numColumns={cols}
           keyExtractor={(i) => i.Id}
-          ListHeaderComponent={<Text style={[s.head, { fontSize: f(26) }]}>{q ? (busy ? '搜尋緊…' : `${res.length} 個結果`) : '輸入關鍵字開始搜尋'}</Text>}
+          ListHeaderComponent={<Text style={[s.head, { fontSize: f(26) }]}>{q ? (busy ? t('searching') : t('results', { n: res.length })) : t('searchHint')}</Text>}
           renderItem={({ item }) => (
             <Focusable onPress={() => onOpen(item)} style={[s.card, { flex: 1 / cols }]} focusStyle={s.cardFocus}>
               <Image source={{ uri: jf.image(item, 480) }} style={{ width: '100%', aspectRatio: 16 / 9, borderRadius: 4, backgroundColor: C.card }} />

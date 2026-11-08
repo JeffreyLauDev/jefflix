@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { t } from './i18n';
 import { Image, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import * as jf from './jellyfin';
 import { C, useLayout } from './theme';
@@ -51,9 +52,9 @@ export function EpisodeRail({ title, current, list, onPick, onHeight, small, onT
       <View style={[s.head, { paddingHorizontal: L.pad }, short && { marginBottom: 6 }]}>
         <Text numberOfLines={1} style={[s.h, { fontSize: short ? 15 : f(34), flex: 1 }]}>{title}</Text>
         {onToggleSize ? (
-          <Focusable onPress={onToggleSize} style={s.size} focusStyle={s.sizeFocus} accessibilityRole="button" accessibilityLabel={small ? '放大畫面' : '縮細畫面'}>
+          <Focusable onPress={onToggleSize} style={s.size} focusStyle={s.sizeFocus} accessibilityRole="button" accessibilityLabel={small ? t('bigger') : t('smaller')}>
             <Icon name={small ? 'fullscreen' : 'exit-fullscreen'} size={short ? 16 : 20} />
-            <Text style={[s.sizeText, { fontSize: short ? 12 : f(18) }]}>{small ? '大畫面' : '細畫面'}</Text>
+            <Text style={[s.sizeText, { fontSize: short ? 12 : f(18) }]}>{small ? t('big') : t('small')}</Text>
           </Focusable>
         ) : null}
       </View>
@@ -81,7 +82,7 @@ export function EpisodeRail({ title, current, list, onPick, onHeight, small, onT
                 {prev === it.Id ? <Preview url={jf.streamUrl(it)} start={Math.min(Math.max(30, runSec * 0.2), Math.max(0, runSec - 15))} /> : null}
                 {now ? (
                   <View style={s.badge}>
-                    <Text style={s.badgeText}>正在播放</Text>
+                    <Text style={s.badgeText}>{t('nowPlaying')}</Text>
                   </View>
                 ) : null}
                 {pos > 0.01 && pos < 0.97 ? (

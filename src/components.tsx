@@ -1,4 +1,5 @@
 import React, { memo, useState } from 'react';
+import { t } from './i18n';
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as jf from './jellyfin';
@@ -104,11 +105,11 @@ export function Hero({ item, onPlay, onInfo }: { item?: jf.Item; onPlay: (i: jf.
         <View style={{ flexDirection: 'row', gap: 14, marginTop: 18 }}>
           <Focusable onPress={() => onPlay(item)} style={[s.btn, { backgroundColor: '#fff' }]} focusStyle={s.btnFocus}>
             <Icon name="play" size={f(28)} color="#000" />
-            <Text style={[s.btnText, { color: '#000', fontSize: f(26) }]}>播放</Text>
+            <Text style={[s.btnText, { color: '#000', fontSize: f(26) }]}>{t('play')}</Text>
           </Focusable>
           <Focusable onPress={() => onInfo(item)} style={[s.btn, { backgroundColor: 'rgba(109,109,110,0.7)' }]} focusStyle={s.btnFocus}>
             <Icon name="info" size={f(28)} />
-            <Text style={[s.btnText, { fontSize: f(26) }]}>詳情</Text>
+            <Text style={[s.btnText, { fontSize: f(26) }]}>{t('details')}</Text>
           </Focusable>
         </View>
       </View>

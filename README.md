@@ -77,6 +77,8 @@ All install guides: https://jefflix-app.vercel.app/download/
 
 ## Features
 
+- **Speaks your language:** English, 廣東話, 繁體中文, 简体中文, 日本語, 한국어, Español. Translations welcome in [`src/i18n.ts`](src/i18n.ts).
+
 - Big hero, Continue Watching, newest additions and poster rows
 - Our own player: speed, quality switch with automatic transcode fallback, episode row, next episode
 - My List synced with your Jellyfin favourites
