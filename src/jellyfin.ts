@@ -78,7 +78,7 @@ function deviceName() {
 
 async function authHeader(token?: string) {
   const id = await getDeviceId();
-  return `MediaBrowser Client="Jefflix", Device="${deviceName()}", DeviceId="${id}", Version="2.0.0"${token ? `, Token="${token}"` : ''}`;
+  return `MediaBrowser Client="Jefflix", Device="${deviceName()}", DeviceId="${id}", Version="2.1.0"${token ? `, Token="${token}"` : ''}`;
 }
 
 async function call<T>(server: string, method: string, path: string, body?: unknown, token = session?.token): Promise<T> {

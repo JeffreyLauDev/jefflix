@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/badge/platforms-macOS%20%7C%20Windows%20%7C%20Linux%20%7C%20iPhone%20%7C%20LG%20TV%20%7C%20Web-333" alt="Platforms">
 </p>
 
-<p align="center"><b>Your Jellyfin, on every screen.</b><br>A cinematic home screen for the Jellyfin server you already run — on macOS, Windows, Linux, iPhone, LG TV and the web.</p>
+<p align="center"><b>Your Jellyfin, on every screen.</b><br>A cinematic, Netflix-inspired home screen for the Jellyfin server you already run — on macOS, Windows, Linux, iPhone, LG TV and the web.</p>
 
 <p align="center"><a href="https://jefflix-app.vercel.app/download/"><b>Download</b></a> · <a href="https://jefflix-app.vercel.app/docs/">Docs</a> · <a href="https://discord.gg/KSp8ZRMvQP">Discord</a> · <a href="https://jefflix-app.vercel.app">Website</a></p>
 
@@ -66,12 +66,12 @@ Sign in on the TV by scanning a QR code with your phone (Jellyfin Quick Connect)
 
 | Platform | Get it |
 | --- | --- |
-| macOS 11+ (Apple Silicon + Intel) | [Jefflix_2.0.0_universal.dmg](https://github.com/JeffreyLauDev/jefflix/releases/latest/download/Jefflix_2.0.0_universal.dmg) |
-| Windows 10 / 11 | [Jefflix_2.0.0_x64-setup.exe](https://github.com/JeffreyLauDev/jefflix/releases/latest/download/Jefflix_2.0.0_x64-setup.exe) |
-| Linux (Debian / Ubuntu) | [Jefflix_2.0.0_amd64.deb](https://github.com/JeffreyLauDev/jefflix/releases/latest/download/Jefflix_2.0.0_amd64.deb) |
-| LG TV (webOS 4+) | [com.jeffrey.jefflix_2.0.0_all.ipk](https://github.com/JeffreyLauDev/jefflix/releases/latest/download/com.jeffrey.jefflix_2.0.0_all.ipk) · [install guide](https://jefflix-app.vercel.app/docs/install/lg-webos/) |
+| macOS 11+ (Apple Silicon + Intel) | [Jefflix_2.1.0_universal.dmg](https://github.com/JeffreyLauDev/jefflix/releases/latest/download/Jefflix_2.1.0_universal.dmg) |
+| Windows 10 / 11 | [Jefflix_2.1.0_x64-setup.exe](https://github.com/JeffreyLauDev/jefflix/releases/latest/download/Jefflix_2.1.0_x64-setup.exe) |
+| Linux (Debian / Ubuntu) | [Jefflix_2.1.0_amd64.deb](https://github.com/JeffreyLauDev/jefflix/releases/latest/download/Jefflix_2.1.0_amd64.deb) |
+| LG TV (webOS 4+) | [com.jeffrey.jefflix_2.1.0_all.ipk](https://github.com/JeffreyLauDev/jefflix/releases/latest/download/com.jeffrey.jefflix_2.1.0_all.ipk) · [install guide](https://jefflix-app.vercel.app/docs/install/lg-webos/) |
 | iPhone / iPad | TestFlight beta — [coming soon](https://jefflix-app.vercel.app/docs/install/ios/) |
-| Web (self-host) | [jefflix-web-2.0.0.zip](https://github.com/JeffreyLauDev/jefflix/releases/latest/download/jefflix-web-2.0.0.zip) |
+| Web (self-host) | [jefflix-web-2.1.0.zip](https://github.com/JeffreyLauDev/jefflix/releases/latest/download/jefflix-web-2.1.0.zip) |
 
 All install guides: https://jefflix-app.vercel.app/download/
 
