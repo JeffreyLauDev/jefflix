@@ -4,7 +4,45 @@ Your Jellyfin, on every screen. A cinematic home screen for the Jellyfin server 
 
 **Website & docs:** https://jefflix-app.vercel.app · **Download:** https://jefflix-app.vercel.app/download/ · **Community:** https://discord.gg/KSp8ZRMvQP
 
-![Jefflix player](https://jefflix-app.vercel.app/shots/player.gif)
+![Jefflix home screen on desktop](docs/screenshots/desktop-home.png)
+
+## Screenshots
+
+> Real screens from a personal library. Artwork is blurred because it belongs to its owners; in Jefflix it is your own library, in full colour.
+
+### Home — big hero and poster rows
+
+![Moving through the home rows with the keyboard](docs/screenshots/browse.gif)
+
+### Details and My List
+
+| Details page | Add to My List |
+| --- | --- |
+| ![Details page with seasons and episodes](docs/screenshots/desktop-details.png) | ![Adding a title to My List](docs/screenshots/mylist.gif) |
+
+### The player
+
+![Player: quality menu, episode row, small and big previews](docs/screenshots/player.gif)
+
+| Episode row over the video | Search with an on-screen keyboard |
+| --- | --- |
+| ![Episode row in the player](docs/screenshots/desktop-episodes.png) | ![Search typed with a remote](docs/screenshots/search.gif) |
+
+### On the TV
+
+![TV layout driven by a remote](docs/screenshots/tv.gif)
+
+| TV home | Sign in with a QR code |
+| --- | --- |
+| ![TV home](docs/screenshots/tv-home.png) | ![TV Quick Connect sign-in](docs/screenshots/tv-quick-connect.png) |
+
+### On iPhone
+
+<p>
+  <img src="docs/screenshots/phone-home.png" alt="Home on iPhone" width="260" />
+  &nbsp;
+  <img src="docs/screenshots/phone-details.png" alt="Details on iPhone" width="260" />
+</p>
 
 ## Features
 
