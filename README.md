@@ -14,27 +14,29 @@ Your Jellyfin, on every screen. A cinematic home screen for the Jellyfin server 
 
 ![Moving through the home rows with the keyboard](docs/screenshots/browse.gif)
 
+![TV home](docs/screenshots/tv-home.png)
+
 ### Details and My List
 
-| Details page | Add to My List |
-| --- | --- |
-| ![Details page with seasons and episodes](docs/screenshots/desktop-details.png) | ![Adding a title to My List](docs/screenshots/mylist.gif) |
+![Details page with seasons and episodes](docs/screenshots/desktop-details.png)
+
+![Adding a title to My List](docs/screenshots/mylist.gif)
 
 ### The player
 
 ![Player: quality menu, episode row, small and big previews](docs/screenshots/player.gif)
 
-| Episode row over the video | Search with an on-screen keyboard |
-| --- | --- |
-| ![Episode row in the player](docs/screenshots/desktop-episodes.png) | ![Search typed with a remote](docs/screenshots/search.gif) |
+### Search, built for a remote
+
+![Search typed with a remote](docs/screenshots/search.gif)
 
 ### On the TV
 
 ![TV layout driven by a remote](docs/screenshots/tv.gif)
 
-| TV home | Sign in with a QR code |
-| --- | --- |
-| ![TV home](docs/screenshots/tv-home.png) | ![TV Quick Connect sign-in](docs/screenshots/tv-quick-connect.png) |
+Sign in on the TV by scanning a QR code with your phone (Jellyfin Quick Connect):
+
+![TV Quick Connect sign-in](docs/screenshots/tv-quick-connect.png)
 
 ### On iPhone
 
