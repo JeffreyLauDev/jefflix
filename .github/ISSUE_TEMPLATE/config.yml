@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Chat and help on Discord
+    url: https://discord.gg/KSp8ZRMvQP
+    about: Install help, questions, or just say hi. The developer answers there.
+  - name: Docs and FAQ
+    url: https://jefflix-app.vercel.app/docs/
+    about: Install guides for every platform and troubleshooting.

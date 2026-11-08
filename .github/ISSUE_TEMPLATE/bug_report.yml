@@ -1,0 +1,32 @@
+name: Bug report
+description: Something doesn't work as it should.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "Quick question or install trouble? The [Discord #help channel](https://discord.gg/KSp8ZRMvQP) is faster."
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options: [macOS, Windows, Linux, iPhone / iPad, LG TV (webOS), Web (self-hosted)]
+    validations: { required: true }
+  - type: input
+    id: version
+    attributes: { label: Jefflix version, placeholder: "2.0.0" }
+    validations: { required: true }
+  - type: input
+    id: jellyfin
+    attributes: { label: Jellyfin server version, placeholder: "10.10.7" }
+    validations: { required: true }
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, what you saw. Screenshots help.
+    validations: { required: true }
+  - type: textarea
+    id: media
+    attributes:
+      label: Media details (playback bugs only)
+      description: Container, video and audio codec of the file (Jellyfin > item > Media info).
